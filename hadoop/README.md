@@ -1,4 +1,7 @@
-Hadoop 构造一个master-2slave的小集群
+# Hadoop 使用docker-compose 构造一个master-2slave的小集群
+
+> 分享感谢 https://github.com/kiwenlau/hadoop-cluster-docker
+
 
 ## 安装
 
@@ -11,6 +14,12 @@ Hadoop 构造一个master-2slave的小集群
 2. build（可略过）
 
 > docker build -t wuhulala/hadoop:2.7.7 -f ./master/Dockerfile .
+
+略过直接使用
+
+```
+docker pull registry.cn-hangzhou.aliyuncs.com/wuhulala/hadoop:2.7.7
+```
 
 3. 进入hadoop 目录
 
