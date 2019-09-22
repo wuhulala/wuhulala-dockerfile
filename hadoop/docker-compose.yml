@@ -1,0 +1,34 @@
+version: '2'
+services:
+    hadoop-master:
+        image:
+           wuhulala/hadoop:2.7.7
+        ports:
+           - 50070:50070
+           - 8088:8088
+           - 9001:9001
+        entrypoint: /root/start-master.sh
+        networks:
+           hadoop_cluster:
+             aliases: 
+              - hadoop-master
+        depends_on:
+          - hadoop-slave1
+          - hadoop-slave2
+    hadoop-slave1:
+        image:
+           wuhulala/hadoop:2.7.7
+        networks:
+           hadoop_cluster:
+             aliases: 
+              - hadoop-slave1
+    hadoop-slave2:
+        image:
+           wuhulala/hadoop:2.7.7
+        networks:
+           hadoop_cluster:
+             aliases: 
+              - hadoop-slave2
+networks:
+   hadoop_cluster:
+    driver: bridge

@@ -1,0 +1,52 @@
+version: '2'
+services:
+    kafka1:
+        image:
+           kafka:1.1.1
+        ports:
+           - 9092:9092
+        networks:
+           - kafka_cluster
+        depends_on:
+                   - zookeeper
+        environment:
+           - zookeeper_addr=zookeeper:2181
+           - broker_id=1
+           - kafka_port=9092
+    kafka2:
+        image:
+           kafka:1.1.1
+        ports:
+           - 9093:9093
+        networks:
+           - kafka_cluster
+        depends_on:
+                   - zookeeper
+        environment:
+           - zookeeper_addr=zookeeper:2181
+           - broker_id=2
+           - kafka_port=9093
+    kafka3:
+        image:
+           kafka:1.1.1
+        ports:
+           - 9094:9094
+        networks:
+           - kafka_cluster
+        depends_on:
+           - zookeeper
+        environment:
+           - zookeeper_addr=zookeeper:2181
+           - broker_id=3
+           - kafka_port=9094
+    zookeeper:
+        image:
+            registry.cn-hangzhou.aliyuncs.com/21epub/zookeeper
+        ports:
+           - 2181:2181
+        networks:
+           - kafka_cluster
+
+networks:
+   kafka_cluster:
+    driver: bridge

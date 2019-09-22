@@ -1,0 +1,16 @@
+# build
+docker build -t kafka:1.1.1 .
+
+# create network
+docker network create kafka_cluster
+
+
+# kafka-cluster
+docker run -d --name kafka1 -p 9092:9092 --link zookeeper --net kafka_cluster -v E:\logs\kafka:/opt/kafka1/logs -e broker_id=1 -e zookeeper_addr=zookeeper:2181  kafka:1.1.1
+docker run -d --name kafka2 -p 9093:9092 --link zookeeper --net kafka_cluster -v E:\logs\kafka:/opt/kafka2/logs -e broker_id=2 -e zookeeper_addr=zookeeper:2181  kafka:1.1.1
+docker run -d --name kafka3 -p 9094:9092 --link zookeeper --net kafka_cluster -v E:\logs\kafka:/opt/kafka3/logs -e broker_id=3 -e zookeeper_addr=zookeeper:2181  kafka:1.1.1
+
+# rm container
+docker stop kafka1 && docker rm kafka1
+docker stop kafka2 && docker rm kafka2
+docker stop kafka3 && docker rm kafka3
