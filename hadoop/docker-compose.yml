@@ -5,8 +5,8 @@ services:
           registry.cn-hangzhou.aliyuncs.com/wuhulala/hadoop:2.7.7
         ports:
            - 50070:50070
-           - 8088:8088
-           - 9001:9001
+           - 18088:8088
+           - 19001:9001
         entrypoint: /root/start-master.sh
         networks:
            hadoop_cluster:
