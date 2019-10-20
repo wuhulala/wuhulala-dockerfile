@@ -24,7 +24,7 @@ services:
               - hadoop-slave1
     hadoop-slave2:
         image:
-           wuhulala/hadoop:2.7.7
+          registry.cn-hangzhou.aliyuncs.com/wuhulala/hadoop:2.7.7
         networks:
            hadoop_cluster:
              aliases: 
