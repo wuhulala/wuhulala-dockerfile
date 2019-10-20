@@ -1,0 +1,29 @@
+version: '2'
+services:
+    kafka1:
+        image:
+           registry.cn-hangzhou.aliyuncs.com/wuhulala/kafka:1.1.1
+        ports:
+           - 9092:9092
+        networks:
+            kafka_cluster:
+              aliases: 
+                - kafka1
+        depends_on:
+           - zookeeper
+        environment:
+           - zookeeper_addr=zookeeper:2181
+           - broker_id=1
+           - kafka_port=9092
+    zookeeper:
+        image:
+            registry.cn-hangzhou.aliyuncs.com/wuhulala/zookeeper:3.4.10
+        ports:
+           - 2181:2181
+        networks:
+           kafka_cluster:
+            aliases:
+              - zookeeper
+networks:
+   kafka_cluster:
+    driver: bridge
