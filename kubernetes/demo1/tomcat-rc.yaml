@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: www.wuhulala.xyz/mysql:5.7.22
+          image: www.wuhulala.xyz/middleware/mysql:5.7.22
           ports:
             - containerPort: 3307
           env:
