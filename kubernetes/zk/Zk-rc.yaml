@@ -1,0 +1,51 @@
+#https://hub.docker.com/_/zookeeper
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-singleton-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - name: zookeeper
+          image: zookeeper:3.6.0
+          ports:
+            - containerPort: 2181
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /conf/
+              name: zookeeper-confdir
+      volumes:
+        - name: zookeeper-confdir
+          hostPath:
+            path: /opt/zookeeper/k8s/conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30032
+      name: admin
+    - port: 2181
+      nodePort: 30033
+      name: zookeeper
+  selector:
+    app: zookeeper
