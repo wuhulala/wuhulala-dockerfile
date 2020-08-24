@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istio-spring-boot-demo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: istio-spring-boot-demo
+  template:
+    metadata:
+      labels:
+        app: istio-spring-boot-demo
+    spec:
+      containers:
+        - name: istio-spring-boot-demo
+          image: istio-spring-boot-demo:1.0
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-svc
+spec:
+  ports:
+    - port: 8080
+      targetPort: 31333
+  selector:
+    app: istio-spring-boot-demo
